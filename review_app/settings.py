@@ -42,7 +42,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core', 
+    'core',
+    'registration',
+    'django.contrib.sites',
+    'bootstrap3',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -115,3 +119,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(MAIN_DIR, 'static'),)
 STATIC_ROOT = 'staticfiles'
+LOGIN_URL = '/user/login'
+LOGIN_REDIRECT_URL ='/'
+SITE_ID = 1

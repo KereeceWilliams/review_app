@@ -1,6 +1,5 @@
 Django==1.9
 argparse==1.2.1
-django-bootstrap3==6.2.2
 django-registration==2.0.3
 django-registration-redux==1.2
 wsgiref==0.1.2
