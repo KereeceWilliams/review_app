@@ -13,3 +13,12 @@ class Review(models.Model):
 
   def __unicode__(self):
     return self.title
+
+class Comment(models.Model):
+    review = models.ForeignKey(Review)
+    user = models.ForeignKey(User)
+    created_at = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()
+
+    def __unicode__(self):
+        return self.text
