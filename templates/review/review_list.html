@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-{% for question in object_list %}
+{% for review in object_list %}
 <div class="panel">
     <h3><a href="{{ review.get_absolute_url }}">{{ review.title }}</a></h3>
     <p>Asked by {{ review.user.username }} on {{ review.created_at }}</p>

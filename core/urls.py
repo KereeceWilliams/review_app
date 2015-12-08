@@ -12,4 +12,5 @@ urlpatterns = patterns('',
        url(r'^review/delete/(?P<pk>\d+)/$', ReviewDeleteView.as_view(), name='review_delete'),
                        url(r'^review/(?P<pk>\d+)/comment/create/$', CommentCreateView.as_view(), name='comment_create'),
                        url(r'^review/(?P<review_pk>\d+)/comment/update/(?P<comment_pk>\d+)/$', CommentUpdateView.as_view(), name='comment_update'),
+                      url(r'^review/(?P<review_pk>\d+)/comment/delete/(?P<comment_pk>\d+)/$', CommentDeleteView.as_view(), name='comment_delete'),
                       )
