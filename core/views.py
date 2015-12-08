@@ -40,7 +40,7 @@ class ReviewUpdateView(UpdateView):
     model = Review
     template_name = 'review/review_form.html'
     fields = ['title', 'description']
-    
+
     def get_object(self, *args, **kwargs):
         object = super(ReviewUpdateView, self).get_object(*args, **kwargs)
         if object.user != self.request.user:
@@ -51,7 +51,7 @@ class ReviewDeleteView(DeleteView):
     model = Review
     template_name = 'review/review_confirm_delete.html'
     success_url = reverse_lazy('review_list')
-    
+
     def get_object(self, *args, **kwargs):
         object = super(ReviewDeleteView, self).get_object(*args, **kwargs)
         if object.user != self.request.user:
@@ -79,7 +79,7 @@ class CommentUpdateView(UpdateView):
 
     def get_success_url(self):
         return self.object.review.get_absolute_url()
-      
+
     def get_object(self, *args, **kwargs):
         object = super(CommentUpdateView, self).get_object(*args, **kwargs)
         if object.user != self.request.user:
@@ -93,23 +93,29 @@ class CommentDeleteView(DeleteView):
 
     def get_success_url(self):
         return self.object.review.get_absolute_url()
-      
+
 def get_object(self, *args, **kwargs):
         object = super(CommentDeleteView, self).get_object(*args, **kwargs)
         if object.user != self.request.user:
             raise PermissionDenied()
         return object
-      
+
 class VoteFormView(FormView):
     form_class = VoteForm
-    
+
     def form_valid(self, form):
         user = self.request.user
         review = Review.objects.get(pk=form.data["review"])
         prev_votes = Vote.objects.filter(user=user, review=review)
-        has_voted = (prev_votes.count()>0)  
+        has_voted = (prev_votes.count()>0)
         if not has_voted:
             Vote.objects.create(user=user, review=review)
         else:
             prev_votes[0].delete()
         return redirect('review_list')
+
+class UserDetailView(DetailView):
+    model = User
+    slug_field = 'username'
+    template_name = 'user/user_detail.html'
+    context_object_name = 'user_in_view'
