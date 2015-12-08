@@ -2,7 +2,7 @@
 {% block content %}
 <h1>{{ review.title }}</h1>
 <p>{{ review.description }}</p>
-<p>Asked by {{ review.user.username }} on {{ review.created_at }}</p>
+<p>Asked by <a href="{% url 'user_detail' slug=review.user.username %}">{{ review.user.username }}</a> on {{ review.created_at }}</p>
 {% if review.user == user %}
 <p><a href="{% url 'review_update' pk=review.id %}">Edit review</a></p>
 <p><a href="{% url 'review_delete' pk=review.id %}">Delete review</a></p>
@@ -16,7 +16,7 @@
    {% if comment.user == user %}
     <p><a href="{% url 'comment_update'  review_pk=review.id comment_pk=comment.id %}">Edit comment</a></p>
   <p><a href="{% url 'comment_delete' review_pk=question.id comment_pk=comment.id %}">Delete comment</a></p>
-    <p>Commented by {{ comment.user.username }} on {{ comment.created_at }}</p>
+    <p>Answered by <a href="{% url 'user_detail' slug=comment.user.username %}">{{ comment.user.username }}</a> on {{ comment.created_at }} ({{ comment.vote_set.all.count }} Vote{{ comment.vote_set.all.count|pluralize }})</p>
   {% endif %}
 </div>
 {% endfor %}
