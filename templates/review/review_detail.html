@@ -15,7 +15,7 @@
     <p>{{ comment.text }}</p>
    {% if comment.user == user %}
     <p><a href="{% url 'comment_update'  review_pk=review.id comment_pk=comment.id %}">Edit comment</a></p>
-  <p><a href="{% url 'comment_delete' review_pk=question.id comment_pk=comment.id %}">Delete comment</a></p>
+  <p><a href="{% url 'comment_delete' review_pk=review.id comment_pk=comment.id %}">Delete comment</a></p>
     <p>Answered by <a href="{% url 'user_detail' slug=comment.user.username %}">{{ comment.user.username }}</a> on {{ comment.created_at }} ({{ comment.vote_set.all.count }} Vote{{ comment.vote_set.all.count|pluralize }})</p>
   {% endif %}
 </div>

@@ -8,13 +8,14 @@ from django.views.generic import FormView
 from .forms import *
 
 
+
 # Create your views here.
 class Home(TemplateView):
     template_name = "home.html"
 class ReviewCreateView(CreateView):
     model = Review
     template_name = "review/review_form.html"
-    fields = ['title', 'description']
+    fields = ['text']
     success_url = reverse_lazy('review_list')
 
     def form_valid(self, form):
@@ -25,6 +26,12 @@ class ReviewListView(ListView):
     model = Review
     template_name = "review/review_list.html"
     paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super(ReviewListView, self).get_context_data(**kwargs)
+        user_votes = Review.objects.filter(vote__user=self.request.user)
+        context['user_votes'] = user_votes
+        return context
 
 class ReviewDetailView(DetailView):
     model = Review
@@ -37,10 +44,11 @@ class ReviewDetailView(DetailView):
       context['comments'] = comments
       return context
 
+
 class ReviewUpdateView(UpdateView):
     model = Review
     template_name = 'review/review_form.html'
-    fields = ['title', 'description']
+    fields = ['text', 'rating']
 
     def get_object(self, *args, **kwargs):
         object = super(ReviewUpdateView, self).get_object(*args, **kwargs)
@@ -63,6 +71,7 @@ class CommentCreateView(CreateView):
     model = Comment
     template_name = "comment/comment_form.html"
     fields = ['text']
+
 
     def get_success_url(self):
         return self.object.review.get_absolute_url()
