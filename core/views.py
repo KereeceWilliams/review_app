@@ -15,7 +15,7 @@ class Home(TemplateView):
 class ReviewCreateView(CreateView):
     model = Review
     template_name = "review/review_form.html"
-    fields = ['text']
+    fields = ['title', 'description']
     success_url = reverse_lazy('review_list')
 
     def form_valid(self, form):
@@ -48,7 +48,7 @@ class ReviewDetailView(DetailView):
 class ReviewUpdateView(UpdateView):
     model = Review
     template_name = 'review/review_form.html'
-    fields = ['text', 'rating']
+    fields = ['text']
 
     def get_object(self, *args, **kwargs):
         object = super(ReviewUpdateView, self).get_object(*args, **kwargs)
@@ -178,3 +178,4 @@ class SearchReviewListView(ReviewListView):
     def get_queryset(self):
         incoming_query_string = self.request.GET.get('query','')
         return Review.objects.filter(title__icontains=incoming_query_string)
+

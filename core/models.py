@@ -32,6 +32,3 @@ class Vote(models.Model):
     def __unicode__(self):
         return "%s upvoted" % (self.user.username)
 
-class Wine(models.Model):
-  title = models.CharField(max_length=300)
-  description = models.TextField(null=True, blank=True)

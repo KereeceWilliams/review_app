@@ -44,7 +44,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="/">Wine</a>
+                <a class="navbar-brand topnav" href="/">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -53,6 +53,7 @@
                   <form action="{% url 'search' %}" class="navbar-form navbar-left" method="get">
     <input type="text" placeholder="Search" class="form-control" name="query">
 </form>
+                  
                   <li><a href="{% url 'review_create' %}">Add review</a></li>
                   <li><a href="{% url 'user_detail' slug=user.username %}">Profile</a></li>
                   <li><a href="{% url 'review_list' %}">Reviews</a></li>
