@@ -3,6 +3,9 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from .models import *
+from django.shortcuts import redirect
+from django.views.generic import FormView
+from .forms import *
 
 
 # Create your views here.
@@ -96,3 +99,17 @@ def get_object(self, *args, **kwargs):
         if object.user != self.request.user:
             raise PermissionDenied()
         return object
+      
+class VoteFormView(FormView):
+    form_class = VoteForm
+    
+    def form_valid(self, form):
+        user = self.request.user
+        review = Review.objects.get(pk=form.data["review"])
+        prev_votes = Vote.objects.filter(user=user, review=review)
+        has_voted = (prev_votes.count()>0)  
+        if not has_voted:
+            Vote.objects.create(user=user, review=review)
+        else:
+            prev_votes[0].delete()
+        return redirect('review_list')
